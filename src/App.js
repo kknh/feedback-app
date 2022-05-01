@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header'
+import AboutPage from './pages/AboutPage'
+import Post from './components/Post'
+import { FeedbackProvider } from './context/FeedbackContext'
+import AboutIconLink from './components/AboutIconLink'
+import FeedbackList from './components/FeedbackList'
+import FeedbackStats from './components/FeedbackStats'
+import FeedbackForm from './components/FeedbackForm'
+import './index.css'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<FeedbackProvider>
+			<Router>
+				<div className="container">
+					<Routes>
+						<Route
+							exact
+							path="/"
+							element={
+								<>
+									<Link to={{ pathname: '/' }}>
+										<Header />
+									</Link>
+									<div className="container">
+										<FeedbackForm />
+										<FeedbackStats />
+										<FeedbackList />
+									</div>
+								</>
+							}
+						></Route>
+						<Route path="/about" element={<AboutPage />} />
+						<Route path="/post" element={<Post />} />
+					</Routes>
+
+					<AboutIconLink />
+				</div>
+			</Router>
+		</FeedbackProvider>
+	)
 }
 
-export default App;
+export default App
